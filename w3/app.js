@@ -19,7 +19,7 @@ let decideDinner = function (hasLeftovers, hasIngredients) {
         displayOnPage('Home cooked meal!')
     } else {
         displayOnPage('Restaurant meal!')
-        eatingAtRestaurant = undefined
+        eatingAtRestaurant = true
     }
 }
 
