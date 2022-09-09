@@ -16,6 +16,7 @@ const decisions = {
     eatingAtRestaurant: false, // State of whether or not I'm eating out
     timesEatenOut: 0, // How many times I've eaten out
     expenses: 0, // How much money I've spent
+    hasEnoughMoney: false // True if my wallet can afford meals
 }
 
 // List of meals and how much they cost
@@ -60,7 +61,7 @@ const restaurantMealOptions = function (walletAmount) {
     if (decisions.eatingAtRestaurant) {
         mealOptions = [] // Resets the listed options if function is called again
         let optionCount = 1 // Number label for listed meals
-        let enoughMoney = false // Always false if there's no affordable meals
+        decisions.hasEnoughMoney = false // Reset its value before checking for enough money in following lines of code
         displayOnPage(`<b>What foods can I get for $${walletAmount.toFixed(2)} or less?</b>`)
         
         meal.forEach(function (obj) {
@@ -72,11 +73,11 @@ const restaurantMealOptions = function (walletAmount) {
                 displayOnPage(`${optionCount}. ${mealSymbol} <span style="color:firebrick">${mealType}</span> ($<i>${mealCost.toFixed(2)}</i>)`)
                 mealOptions.push(mealType)
                 optionCount++
-                enoughMoney = true
+                decisions.hasEnoughMoney = true
             }
         })
 
-        if (!enoughMoney) {
+        if (!decisions.hasEnoughMoney) {
             displayOnPage(`None! Not enough money. :(`)
         }
     }
@@ -85,17 +86,19 @@ const restaurantMealOptions = function (walletAmount) {
 // Input the meal I selected from listed meal options
 const decideRestaurantMeal = function (selectedMeal) {
     if (decisions.eatingAtRestaurant) {
-        displayOnPage(`<b>What food have I decided to get?</b>`)
+        if(decisions.hasEnoughMoney) {
+            displayOnPage(`<b>What food have I decided to get?</b>`)
 
-        if (!(mealOptions.indexOf(selectedMeal) === -1)) {
-            const mealIndex = meal.map(object => object.type).indexOf(selectedMeal) // Finds the index of selected meal
-            const mealSymbol = meal[mealIndex].symbol
-            
-            displayOnPage(`<span style="color:firebrick">${mealSymbol} ${selectedMeal} &#128523</span>`)
-            decisions.timesEatenOut += 1
-            decisions.expenses += meal[mealIndex].cost
-        } else {
-            displayOnPage(`<span style="color:firebrick">That wasn't an option</span>.`)
+            if (!(mealOptions.indexOf(selectedMeal) === -1)) {
+                const mealIndex = meal.map(object => object.type).indexOf(selectedMeal) // Finds the index of selected meal
+                const mealSymbol = meal[mealIndex].symbol
+                
+                displayOnPage(`<span style="color:firebrick">${mealSymbol} ${selectedMeal} &#128523</span>`)
+                decisions.timesEatenOut += 1
+                decisions.expenses += meal[mealIndex].cost
+            } else {
+                displayOnPage(`<span style="color:firebrick">That wasn't an option</span>.`)
+            }
         }
     }
 }
