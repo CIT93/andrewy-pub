@@ -63,18 +63,18 @@ const restaurantMealOptions = function (walletAmount) {
         let enoughMoney = false // Always false if there's no affordable meals
         displayOnPage(`<b>What foods can I get for $${walletAmount.toFixed(2)} or less?</b>`)
         
-        for (let count = 0; count < meal.length; count++) {
-            const mealType = meal[count].type
-            const mealCost = meal[count].cost
-            const mealSymbol = meal[count].symbol
-
+        meal.forEach(function (obj) {
+            const mealType = obj.type
+            const mealCost = obj.cost
+            const mealSymbol = obj.symbol
+            
             if (mealCost <= walletAmount){
                 displayOnPage(`${optionCount}. ${mealSymbol} <span style="color:firebrick">${mealType}</span> ($<i>${mealCost.toFixed(2)}</i>)`)
                 mealOptions.push(mealType)
                 optionCount++
                 enoughMoney = true
             }
-        }
+        })
 
         if (!enoughMoney) {
             displayOnPage(`None! Not enough money. :(`)
