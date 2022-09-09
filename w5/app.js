@@ -21,19 +21,24 @@ const decisions = {
 // List of meals and how much they cost
 const meal = [{
     type: 'Pizza',
-    cost: 9.99
+    cost: 9.99,
+    symbol: '&#127829'
 }, {
     type: 'Taco',
-    cost: 2.29
+    cost: 2.29,
+    symbol: '&#127790'
 }, {
     type: 'Sushi',
-    cost: 30
+    cost: 30,
+    symbol: '&#127843'
 }, {
     type: 'Burger',
-    cost: 7.39
+    cost: 7.39,
+    symbol: '&#127828'
 }, {
     type: 'Pho',
-    cost: 16.25
+    cost: 16.25,
+    symbol: '&#127836'
 }]
 
 // Checks if I have any sort of food at home to eat, else I end up eating out
@@ -41,11 +46,11 @@ const decideDinnerType = function (hasLeftovers, hasIngredients) {
     displayOnPage(`<b>What type of dinner am I having for tonight?</b>`)
 
     if (hasLeftovers) {
-        displayOnPage(`Leftovers!`)
+        displayOnPage(`<span style="color:firebrick">Leftovers</span>!`)
     } else if (hasIngredients) {
-        displayOnPage(`Home cooked meal!`)
+        displayOnPage(`<span style="color:firebrick">Home cooked meal</span>!`)
     } else {
-        displayOnPage(`Restaurant meal!`)
+        displayOnPage(`<span style="color:firebrick">Restaurant meal</span>!`)
         decisions.eatingAtRestaurant = true
     }
 }
@@ -61,9 +66,10 @@ const restaurantMealOptions = function (walletAmount) {
         for (let count = 0; count < meal.length; count++) {
             const mealType = meal[count].type
             const mealCost = meal[count].cost
+            const mealSymbol = meal[count].symbol
 
             if (mealCost <= walletAmount){
-                displayOnPage(`${optionCount}. ${mealType}`)
+                displayOnPage(`${optionCount}. ${mealSymbol} <span style="color:firebrick">${mealType}</span> ($<i>${mealCost.toFixed(2)}</i>)`)
                 mealOptions.push(mealType)
                 optionCount++
                 enoughMoney = true
@@ -83,26 +89,27 @@ const decideRestaurantMeal = function (selectedMeal) {
 
         if (!(mealOptions.indexOf(selectedMeal) === -1)) {
             const mealIndex = meal.map(object => object.type).indexOf(selectedMeal) // Finds the index of selected meal
+            const mealSymbol = meal[mealIndex].symbol
             
-            displayOnPage(selectedMeal)
+            displayOnPage(`<span style="color:firebrick">${mealSymbol} ${selectedMeal} &#128523</span>`)
             decisions.timesEatenOut += 1
             decisions.expenses += meal[mealIndex].cost
         } else {
-            displayOnPage(`That wasn't an option.`)
+            displayOnPage(`<span style="color:firebrick">That wasn't an option</span>.`)
         }
     }
 }
 
 // Displays tracked data
 const decisionsStats = function () {
-    displayOnPage(`<br><b>Stats:</b>`)
+    displayOnPage(`<br><b>Stats: &#128200</b>`)
     displayOnPage(`Times eaten out: ${decisions.timesEatenOut}`)
     displayOnPage(`Meal expenses: $${decisions.expenses.toFixed(2)}`)
 }
 
 // Running functions
 decideDinnerType(false, false)
-restaurantMealOptions(16.24)
+restaurantMealOptions(35)
 decideRestaurantMeal(`Burger`)
 decisionsStats()
 // [END OF CODE]
