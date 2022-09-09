@@ -58,7 +58,7 @@ const decideDinnerType = function (hasLeftovers, hasIngredients) {
 
 // Output a list of meals that my wallet can afford
 const restaurantMealOptions = function (walletAmount) {
-    if (decisions.eatingAtRestaurant) {
+    if (decisions.eatingAtRestaurant) { // Won't display output if not eating out
         mealOptions = [] // Resets the listed options if function is called again
         let optionCount = 1 // Number label for listed meals
         decisions.hasEnoughMoney = false // Reset its value before checking for enough money in following lines of code
@@ -85,8 +85,8 @@ const restaurantMealOptions = function (walletAmount) {
 
 // Input the meal I selected from listed meal options
 const decideRestaurantMeal = function (selectedMeal) {
-    if (decisions.eatingAtRestaurant) {
-        if(decisions.hasEnoughMoney) {
+    if (decisions.eatingAtRestaurant) { // Won't display output if not eating out
+        if(decisions.hasEnoughMoney) { // Won't display output if not enough money
             displayOnPage(`<b>What food have I decided to get?</b>`)
 
             if (!(mealOptions.indexOf(selectedMeal) === -1)) {
