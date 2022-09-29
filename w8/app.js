@@ -31,7 +31,7 @@ addFood(`Burger`, 7.39, `🍔`)
 addFood(`Pho`, 16.25, `🍜`)
 addFood(`Burrito`, 6.50, `🌯`)
 addFood(`Hotdog`, 4.07, `🌭`)
-addFood(`Steak`, 999.99, `🥩`) 
+addFood(`Steak`, 9999.99, `🥩`) 
 
 // Creates and returns a new text element, typically <p> by default
 const addText = function (text, tag = `p`) {
@@ -80,12 +80,12 @@ const renderMealOptions = function () {
         const mealEmoji = e.emoji
 
         if (mealCost <= stats.budget){ // Render budget meal buttons
-            const newMealButton = addButton(`${mealEmoji} <b><span style="color:firebrick">${mealType}</span></b> ($<i>${mealCost.toFixed(2)}</i>)`, `index${meal.indexOf(e)}`, `meals`)
+            const newMealButton = addButton(`${mealEmoji} <b><span style="color:firebrick">${mealType}</span></b> ($<i>${mealCost.toLocaleString('en-US', {minimumFractionDigits:2})}</i>)`, `index${meal.indexOf(e)}`, `meals`)
             noMealOptions = false
             document.querySelector(`#meal-buttons`).append(newMealButton)
         } else {
             if (stats.showOptions) { // Render out-of-budget meal buttons if "Show Out-of-Budget Options" checkbox is checked
-                const newMealButton = addButton(`${mealEmoji} <b><span style="color:firebrick">${mealType}</span></b> ($<i>${mealCost.toFixed(2)}</i>)`, `index${meal.indexOf(e)}`, `meals`)
+                const newMealButton = addButton(`${mealEmoji} <b><span style="color:firebrick">${mealType}</span></b> ($<i>${mealCost.toLocaleString('en-US', {minimumFractionDigits:2})}</i>)`, `index${meal.indexOf(e)}`, `meals`)
                 newMealButton.disabled = true // Disables the functionality of out-of-budget meal buttons
                 document.querySelector(`#meal-buttons`).append(newMealButton)
             }
@@ -108,7 +108,7 @@ const renderMealOptions = function () {
             stats.expenses += mealObj.cost
             stats.timesEatenOut++
 
-            const purchasedMeal = addText(`[${stats.timesEatenOut}] You purchased: ${mealObj.emoji} <span style="color:firebrick">${mealObj.type}</span> ($${mealObj.cost.toFixed(2)})`)
+            const purchasedMeal = addText(`[${stats.timesEatenOut}] You purchased: ${mealObj.emoji} <span style="color:firebrick">${mealObj.type}</span> ($${mealObj.cost.toLocaleString('en-US', {minimumFractionDigits:2})})`)
 
             document.querySelector(`#history-title`).innerHTML = `Your Purchase History:`
             document.querySelector(`#purchase-history`).prepend(purchasedMeal)
