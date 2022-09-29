@@ -54,8 +54,8 @@ const addButton = function (text, id, className) {
 const renderStats = function () {
     // Creating new texts with updated stat data
     const statTitle = addText(`Stats: 📈`, `h3`)
-    const stat1 = addText(`Meal Budget: <b><span style="color:green">$${stats.budget.toFixed(2)}</span></b>`)
-    const stat2 = addText(`Money Spent: <b><span style="color:firebrick">$${stats.expenses.toFixed(2)}</span></b>`)
+    const stat1 = addText(`Meal Budget: <b><span style="color:green">$${stats.budget.toLocaleString('en-US', {minimumFractionDigits:2})}</span></b>`)
+    const stat2 = addText(`Money Spent: <b><span style="color:firebrick">$${stats.expenses.toLocaleString('en-US', {minimumFractionDigits:2})}</span></b>`)
     const stat3 = addText(`Times Eaten Out: <b><span style="color:purple">${stats.timesEatenOut}</span></b>`)
     
     document.querySelector(`#stats`).innerHTML = `` // Clears out the old texts in #stats div
@@ -65,7 +65,7 @@ const renderStats = function () {
 // Renders/Refresh meal options onto webpage
 const renderMealOptions = function () {
     let noMealOptions = true // Keeps track of meal option availability
-    const mealOptionTitle = addText(`<b>Foods available for <span style="color:green">$${stats.budget.toFixed(2)}</span> or less:</b>`) // Updated meal option title
+    const mealOptionTitle = addText(`<b>Foods available for <span style="color:green">$${stats.budget.toLocaleString('en-US', {minimumFractionDigits:2})}</span> or less:</b>`) // Updated meal option title
 
     // Resets meal option box
     document.querySelector(`#meal-title`).innerHTML = ``
