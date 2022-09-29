@@ -31,7 +31,7 @@ addFood(`Burger`, 7.39, `🍔`)
 addFood(`Pho`, 16.25, `🍜`)
 addFood(`Burrito`, 6.50, `🌯`)
 addFood(`Hotdog`, 4.07, `🌭`)
-addFood(`Steak`, 9999.99, `🥩`) 
+addFood(`Steak`, 999.99, `🥩`) 
 
 // Creates and returns a new text element, typically <p> by default
 const addText = function (text, tag = `p`) {
