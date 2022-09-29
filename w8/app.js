@@ -6,7 +6,7 @@ const stats = {
     budget: 0, // Meal budget
     timesEatenOut: 0, // How many times you've eaten out
     expenses: 0, // How much money you've spent
-    showOptions: false
+    showOptions: false // Keeps track of the "Show Out-of-Budget Options" checkbox
 }
 
 // Object array with list of meal types, costs, and emojis
@@ -79,20 +79,14 @@ const renderMealOptions = function () {
         const mealCost = e.cost
         const mealEmoji = e.emoji
 
-        if (!stats.showOptions) { // Only renders budget meal buttons
-            if (mealCost <= stats.budget){
+        if (mealCost <= stats.budget){ // Render budget meal buttons
+            const newMealButton = addButton(`${mealEmoji} <b><span style="color:firebrick">${mealType}</span></b> ($<i>${mealCost.toFixed(2)}</i>)`, `index${meal.indexOf(e)}`, `meals`)
+            noMealOptions = false
+            document.querySelector(`#meal-buttons`).append(newMealButton)
+        } else {
+            if (stats.showOptions) { // Render out-of-budget meal buttons if "Show Out-of-Budget Options" checkbox is checked
                 const newMealButton = addButton(`${mealEmoji} <b><span style="color:firebrick">${mealType}</span></b> ($<i>${mealCost.toFixed(2)}</i>)`, `index${meal.indexOf(e)}`, `meals`)
-                noMealOptions = false
-                document.querySelector(`#meal-buttons`).append(newMealButton)
-            }
-        } else { // Renders budget and out-of-budget meal buttons
-            if (mealCost <= stats.budget){
-                const newMealButton = addButton(`${mealEmoji} <b><span style="color:firebrick">${mealType}</span></b> ($<i>${mealCost.toFixed(2)}</i>)`, `index${meal.indexOf(e)}`, `meals`)
-                noMealOptions = false
-                document.querySelector(`#meal-buttons`).append(newMealButton)
-            } else {
-                const newMealButton = addButton(`${mealEmoji} <b><span style="color:firebrick">${mealType}</span></b> ($<i>${mealCost.toFixed(2)}</i>)`, `index${meal.indexOf(e)}`, `meals`)
-                newMealButton.disabled = true // disables the functionality of out-of-budget meal buttons
+                newMealButton.disabled = true // Disables the functionality of out-of-budget meal buttons
                 document.querySelector(`#meal-buttons`).append(newMealButton)
             }
         }
