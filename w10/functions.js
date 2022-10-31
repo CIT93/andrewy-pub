@@ -125,10 +125,6 @@ const renderPurchaseHistory = function () {
             const purchaseMsg = addText(`<span style="color:blue">[${count + 1}]</span> You purchased: ${mealObj.emoji} <span style="color:firebrick">${mealObj.type}</span> ($${mealObj.cost.toLocaleString('en-US', {minimumFractionDigits:2})}) <a href="details.html#${purchase.id}"><font size="-2">Details</font></a>`)
             document.querySelector(`#purchase-history`).prepend(purchaseMsg)
         }
-
-        // purchaseHistory.forEach(function (e) {
-
-        // })
     } else {
         document.querySelector(`#history-title`).innerHTML = ``
     }
