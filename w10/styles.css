@@ -1,0 +1,59 @@
+html {
+    overflow-y: scroll;
+}
+body {
+	background-color: beige;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	text-align: center;
+}
+#head-title {
+	background-color: rgb(194, 228, 194);
+	border: 5px solid rgb(112, 196, 112);
+	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	width: 700px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	margin: auto;
+}
+#input-title {
+	margin-top: 35px;
+}
+#error {
+	margin: auto;
+	width: 300px;
+}
+#stats {
+	background-color: rgb(255, 255, 255);
+	border: 5px solid rgb(211, 211, 211);
+	width: 300px;
+	padding-top: 1px;
+	padding-bottom: 15px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#meal-options {
+	background-color: rgb(194, 228, 194);
+	border: 5px solid rgb(112, 196, 112);
+	width: 300px;
+	padding-bottom: 15px;
+	padding-left: 25px;
+	padding-right: 25px;
+	margin-top: 25px;
+	margin-bottom: 25px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#meal-buttons {
+	width: 300px;
+	margin: auto;
+}
+.meals {
+	width: 60px;
+	margin-bottom: 25px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
