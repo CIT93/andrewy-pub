@@ -1,0 +1,11 @@
+body {
+	background-color: beige;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	text-align: center;
+}
+#details {
+    width: 250px;
+    margin-left: auto;
+	margin-right: auto;
+    text-align: left;
+}
