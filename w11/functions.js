@@ -1,9 +1,15 @@
+'use strict'
+
 /**[CREATION SECTION]
  * Functions that create/returns new variables, elements, or objects
  */
 
 // Adds food objects into the meal array
 const addFood = (fType, fCost, fEmoji) => {
+    if ((typeof fType !== `string`) || (typeof fCost !== `number`) || (typeof fEmoji !== `string`)) {
+        throw Error(`arg1 must be a string, arg2 must be a number, arg3 must be a string`)
+    }
+
     meal.push({
         type: fType, // food name
         cost: fCost, // food price
@@ -13,6 +19,10 @@ const addFood = (fType, fCost, fEmoji) => {
 
 // Creates and returns a new text element, typically <p> by default
 const addText = (text, tag = `p`) => {
+    if ((typeof text !== `string`) || (typeof tag !== `string`)) {
+        throw Error(`arg1 & arg2 must be a string`)
+    }
+
     const newText = document.createElement(tag)
     newText.innerHTML = text
     return newText
@@ -20,6 +30,10 @@ const addText = (text, tag = `p`) => {
 
 // Creates and returns a new button element
 const addButton = (text, id, className) => {
+    if ((typeof text !== `string`) || (typeof id !== `string`) || (typeof className !== `string`)) {
+        throw Error(`arg1, arg2, & arg3 must be a string`)
+    }
+
     const newButton = document.createElement(`button`)
     newButton.setAttribute(`id`, id)
     newButton.setAttribute(`class`, className)
@@ -150,30 +164,39 @@ const renderPurchaseHistory = () => {
 const loadFood = () => {
     const foodJSON = localStorage.getItem(`foods`)
 
-    return foodJSON ? JSON.parse(foodJSON) : []
+    try {
+        return foodJSON ? JSON.parse(foodJSON) : []
+    } catch (e) {
+        return []
+    }
 }
 
 // Loads stats data from local storage
 const loadStats = () => {
     const statsJSON = localStorage.getItem(`stats`)
-    
-    if (statsJSON) {
-        return JSON.parse(statsJSON)
-    } else {
-        return {
-            budget: 0, // Meal budget
-            expenses: 0, // How much money you've spent
-            timesEatenOut: 0, // How many times you've eaten out
-            showOptions: false // Keeps track of the "Show Out-of-Budget Options" checkbox
-        }
+    const emptyStats = {
+        budget: 0, // Meal budget
+        expenses: 0, // How much money you've spent
+        timesEatenOut: 0, // How many times you've eaten out
+        showOptions: false // Keeps track of the "Show Out-of-Budget Options" checkbox
+    }
+
+    try {
+        return statsJSON ? JSON.parse(statsJSON) : emptyStats
+    } catch (e) {
+        return emptyStats
     }
 }
 
 // Loads purchase history data from local storage
 const loadPurchaseHistory = () => {
-    const purchastHistoryJSON = localStorage.getItem(`purchase-history`)
+    const purchaseHistoryJSON = localStorage.getItem(`purchase-history`)
 
-    return purchastHistoryJSON ? JSON.parse(purchastHistoryJSON) : []
+    try {
+        return purchaseHistoryJSON ? JSON.parse(purchaseHistoryJSON) : []
+    } catch (e) {
+        return []
+    }
 }
 
 // Saves meal types onto local storage
@@ -198,14 +221,18 @@ const savePurchaseHistory = () => {
  */
 
 // Returns how many decimal places there are in a decimal
-const decimalPrecision = (dec0) => {
-    const dec1 = dec0.toString()
-    if (dec1.indexOf(`e-`) !== -1) {
-        const dec2 = parseInt(dec1.split(`-`)[1])
-        const dec3 = dec1.split(`-`)[0].split(`.`)[1].replaceAll(`e`, ``).length
-        return dec2 + dec3
-    } else if (dec1.indexOf(`.`) !== -1) {
-        return dec1.replaceAll(`0`, `1`).split(`.`)[1].length
+const decimalPrecision = (decimal) => {
+    if (typeof decimal !== `number`) {
+        throw Error(`arg1 must be a number`)
+    }
+    
+    const decStr = decimal.toString()
+    if (decStr.indexOf(`e-`) !== -1) {
+        const decX = parseInt(decStr.split(`-`)[1])
+        const decY = decStr.split(`-`)[0].split(`.`)[1].replaceAll(`e`, ``).length
+        return decX + decY
+    } else if (decStr.indexOf(`.`) !== -1) {
+        return decStr.replaceAll(`0`, `1`).split(`.`)[1].length
     } else {
         return 0
     }

@@ -1,3 +1,5 @@
+'use strict'
+
 const detailsId = location.hash.substring(1)
 const meal = loadFood()
 let stats = loadStats()

@@ -1,3 +1,5 @@
+'use strict'
+
 /**[MEAL EXPENSE MANAGER]
  * Description:
  * A meal budgeting and expense management program
@@ -21,6 +23,7 @@ addFood(`Pho`, 16.25, `🍜`)
 addFood(`Burrito`, 6.50, `🌯`)
 addFood(`Hotdog`, 4.07, `🌭`)
 addFood(`Steak`, 999.99, `🥩`)
+addFood(`porridge`, 23, `🥣`)
 saveFood()
 
 
@@ -85,14 +88,6 @@ const setupWebpage = () => {
     renderStats()
     renderMealOptions()
     renderPurchaseHistory()
-}
-
-const x = 0
-
-if(x) {
-    console.log(true)
-} else {
-    console.log(false)
 }
 
 // Run function
